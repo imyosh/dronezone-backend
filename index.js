@@ -16,9 +16,13 @@ app.use(express.urlencoded({ extended: true, limit: '50' }))
 
 // mongodb+srv://adit:adit@cluster0.azqba7k.mongodb.net/?retryWrites=true&w=majority
 
+let remoteCluster =
+  'mongodb+srv://imyosh:yosh5511451@cluster0.yfnnvmx.mongodb.net/?retryWrites=true&w=majority'
+
+let localCluster = 'mongodb://localhost:27017/dronezone'
 // Connect to MongoDB
 mongooes
-  .connect('mongodb://localhost:27017/dronezone', { useNewUrlParser: true })
+  .connect(remoteCluster, { useNewUrlParser: true })
   .then(() => {
     console.log('Connected to MongoDB live')
   })

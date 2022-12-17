@@ -33,7 +33,7 @@ const RequestSchema = new Schema(
     status: {
       type: String,
       required: true,
-      enum: ['Pending', 'Processing', 'Delivered', 'Canceled'],
+      enum: ['Pending', 'Processing', 'Shipping', 'Delivered', 'Canceled'],
       default: 'Pending',
     },
   },

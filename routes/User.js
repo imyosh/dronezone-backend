@@ -4,9 +4,7 @@ const auth = require('../middleware/auth')
 const {
   register,
   login,
-  getUser,
   getUserExports,
-  updateUser,
   deleteUser,
   requestExport,
   getAllSentRequests,
@@ -20,11 +18,7 @@ router.post('/register', validator.register, register)
 
 router.post('/login', validator.login, login)
 
-router.get('/get', auth.verifyToken, getUser)
-
 router.get('/getExports/:networkId', auth.verifyToken, getUserExports)
-
-router.patch('/update', auth.verifyToken, updateUser)
 
 router.delete('/delete/:networkId/:userId', auth.verifyToken, deleteUser)
 

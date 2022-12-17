@@ -94,7 +94,8 @@ async function login(req, res) {
       res.status(400).send({ message: 'Invalid email or password' })
     }
   } catch (error) {
-    res.json(error)
+    // res.json(error)
+    console.log(error)
   }
 }
 
@@ -120,59 +121,6 @@ async function getUserExports(req, res) {
   } catch (error) {
     console.log(error)
     res.status(404).send(error)
-  }
-}
-
-// getUser
-async function getUser(req, res) {
-  const id = req.userId
-
-  console.log(id)
-  try {
-    const user = await User.findById(id)
-    if (user) {
-      res.send(user)
-    } else {
-      res.status(404).send({ message: 'User not found' })
-    }
-  } catch (error) {
-    res.json(error)
-  }
-}
-
-// updateUser
-async function updateUser(req, res) {
-  const id = req.userId
-  const userData = req.body
-  try {
-    //if userdata has password, hash it
-    if (userData.password) {
-      const hash = await bcrypt.hashSync(userData.password, 10)
-      userData.password = hash
-    }
-    //if req.files is not empty then upload the file and save the path in the database and save the user
-    if (req.files) {
-      //first delete the old image
-      const user = await User.findById(id)
-      let dir = `uploads/users/${user.email}`
-      await deleteFile(user.ImageKey)
-      //then upload the new image
-      const image = await uploadImage(req.files.image, dir)
-      userData.Image = image.Location
-      userData.ImageKey = image.Key
-    }
-
-    const user = await User.findByIdAndUpdate(id, userData, {
-      new: true,
-      runValidators: true,
-    })
-    if (user) {
-      res.send(user)
-    } else {
-      res.status(404).send({ message: 'User not found' })
-    }
-  } catch (error) {
-    res.json(error)
   }
 }
 
@@ -335,9 +283,7 @@ async function updateRequstStatus(req, res) {
 module.exports = {
   register,
   login,
-  getUser,
   getUserExports,
-  updateUser,
   deleteUser,
   requestExport,
   getAllSentRequests,
