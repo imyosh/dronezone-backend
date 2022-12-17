@@ -10,9 +10,18 @@ dotenv.config()
 
 const port = process.env.PORT || 8868
 app.use(fileUpload())
-app.use(cors({ origin: 'http://localhost:3000' }))
+app.use(
+  cors({
+    origin: ['http://localhost:3000', 'https://yosh-dronezone.netlify.app'],
+  })
+)
 app.use(express.json({ limit: '50mb' }))
 app.use(express.urlencoded({ extended: true, limit: '50' }))
+
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  next()
+})
 
 // mongodb+srv://adit:adit@cluster0.azqba7k.mongodb.net/?retryWrites=true&w=majority
 
