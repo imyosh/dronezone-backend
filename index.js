@@ -35,5 +35,11 @@ mongooes
     })
   })
 
+//test connection
+app.get('/', (req, res) => {
+  //all routes info here
+  res.send({ message: 'All Good !' })
+})
+
 app.use('/api/users', require('./routes/User'))
 app.use('/api/networks', require('./routes/Network'))
