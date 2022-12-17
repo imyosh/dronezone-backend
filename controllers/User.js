@@ -82,6 +82,8 @@ async function register(req, res) {
 }
 // login user and return the user use async/await
 async function login(req, res) {
+  res.header('Access-Control-Allow-Origin', '*')
+
   const { email, password } = req.body
   try {
     const user = await User.login(email, password)
